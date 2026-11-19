@@ -8,23 +8,25 @@ export default function BrandStorySection() {
     <section className="py-24 bg-white border-y border-accent-beige/60 overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
-          {/* Visual Side */}
+          {/* Visual Side: Clean 4:3 Studio Frame displaying full box */}
           <div className="lg:col-span-5 relative order-2 lg:order-1">
             <div className="relative mx-auto max-w-md lg:max-w-none">
               <div className="absolute -inset-3 rounded-3xl border border-gold-champagne/30 rotate-2 pointer-events-none" />
-              <div className="relative rounded-2xl overflow-hidden bg-ivory-cream shadow-luxury-lg aspect-[4/4.5] border border-accent-beige">
-                <Image
-                  src="/images/products/choco-floral-treats.jpeg"
-                  alt="Noir & Nuts Artisanal Floral Chocolate Box Creation"
-                  fill
-                  className="object-cover object-center"
-                  sizes="(max-width: 1024px) 90vw, 480px"
-                />
+              <div className="relative rounded-2xl overflow-hidden bg-white shadow-luxury-lg aspect-[4/3] border border-accent-beige p-3 group">
+                <div className="relative w-full h-full">
+                  <Image
+                    src="/images/products/choco-floral-treats.jpeg"
+                    alt="Noir & Nuts Artisanal Floral Chocolate Box Creation"
+                    fill
+                    className="object-contain object-center drop-shadow-md group-hover:scale-105 transition-all duration-700 ease-out contrast-[1.03]"
+                    sizes="(max-width: 1024px) 90vw, 480px"
+                  />
+                </div>
               </div>
 
               {/* Floating quote card */}
               <div className="absolute -bottom-6 -right-4 sm:-bottom-8 sm:-right-6 bg-chocolate-espresso text-ivory-warm p-5 sm:p-6 rounded-2xl shadow-luxury max-w-xs border border-gold-champagne/40">
-                <Quote className="w-6 h-6 text-gold-champagne mb-2 opacity-80" />
+                <Quote className="w-5 h-5 text-gold-champagne mb-1.5 opacity-80" />
                 <p className="font-serif italic text-sm text-ivory-warm leading-snug">
                   &ldquo;Taste the Luxury, Feel the Love!&rdquo;
                 </p>

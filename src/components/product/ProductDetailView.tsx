@@ -14,6 +14,7 @@ import {
   Calendar,
   Check,
   ArrowLeft,
+  ZoomIn,
 } from "lucide-react";
 import { Product } from "@/types/product";
 import { formatPrice } from "@/lib/utils";
@@ -30,6 +31,7 @@ export default function ProductDetailView({ product, relatedProducts }: ProductD
   const [selectedImage, setSelectedImage] = useState(0);
   const [quantity, setQuantity] = useState(1);
   const [addedNotice, setAddedNotice] = useState(false);
+  const [isZoomed, setIsZoomed] = useState(false);
   const { addToCart } = useCart();
 
   const handleAddToCart = () => {
@@ -54,22 +56,35 @@ export default function ProductDetailView({ product, relatedProducts }: ProductD
 
       {/* Main Product Showcase Section */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
-        {/* Left Column: Image Gallery */}
+        {/* Left Column: Image Gallery - 4:3 Ratio Studio Frame */}
         <div className="lg:col-span-6 space-y-4">
-          <div className="relative rounded-3xl overflow-hidden bg-ivory-cream border border-accent-beige shadow-luxury aspect-square">
-            <Image
-              src={product.images[selectedImage] || product.images[0]}
-              alt={product.name}
-              fill
-              priority
-              className="object-cover object-center"
-              sizes="(max-width: 1024px) 100vw, 550px"
-            />
+          <div
+            className="relative rounded-3xl overflow-hidden bg-white border border-accent-beige/90 shadow-luxury aspect-[4/3] p-4 sm:p-6 flex items-center justify-center cursor-zoom-in group"
+            onClick={() => setIsZoomed(!isZoomed)}
+          >
+            <div className="relative w-full h-full">
+              <Image
+                src={product.images[selectedImage] || product.images[0]}
+                alt={product.name}
+                fill
+                priority
+                className={`object-contain object-center drop-shadow-md transition-all duration-500 contrast-[1.03] ${
+                  isZoomed ? "scale-125" : "group-hover:scale-105"
+                }`}
+                sizes="(max-width: 1024px) 100vw, 600px"
+              />
+            </div>
+
             {product.isBestseller && (
-              <span className="absolute top-5 left-5 px-3 py-1.5 rounded-full bg-gold-champagne text-chocolate-espresso text-xs font-bold uppercase tracking-wider shadow-sm">
+              <span className="absolute top-5 left-5 px-3 py-1.5 rounded-full bg-gold-champagne text-chocolate-espresso text-xs font-bold uppercase tracking-wider shadow-sm pointer-events-none">
                 Bestseller
               </span>
             )}
+
+            <div className="absolute bottom-4 right-4 flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/90 backdrop-blur-xs text-[11px] text-chocolate-espresso border border-accent-beige shadow-xs opacity-75 group-hover:opacity-100 transition-opacity pointer-events-none">
+              <ZoomIn className="w-3.5 h-3.5 text-gold-antique" />
+              <span>{isZoomed ? "Click to Reset" : "Click to Inspect"}</span>
+            </div>
           </div>
 
           {/* Multiple Image Thumbnails if present */}
@@ -79,13 +94,13 @@ export default function ProductDetailView({ product, relatedProducts }: ProductD
                 <button
                   key={idx}
                   onClick={() => setSelectedImage(idx)}
-                  className={`relative w-20 h-20 rounded-xl overflow-hidden border-2 transition-all ${
+                  className={`relative w-20 h-20 rounded-xl overflow-hidden border-2 bg-white p-1 transition-all ${
                     selectedImage === idx
                       ? "border-gold-champagne shadow-sm scale-105"
                       : "border-accent-beige opacity-70 hover:opacity-100"
                   }`}
                 >
-                  <Image src={img} alt={`${product.name} preview ${idx + 1}`} fill className="object-cover" />
+                  <Image src={img} alt={`${product.name} preview ${idx + 1}`} fill className="object-contain" />
                 </button>
               ))}
             </div>
@@ -244,7 +259,7 @@ export default function ProductDetailView({ product, relatedProducts }: ProductD
             </p>
           </div>
 
-          {/* Specifications Accordion / Meta */}
+          {/* Specifications Meta */}
           <div className="pt-6 border-t border-accent-beige/70 space-y-3 text-xs text-chocolate-rich/80">
             {product.ingredients && product.ingredients.length > 0 && (
               <div className="flex items-start gap-2">

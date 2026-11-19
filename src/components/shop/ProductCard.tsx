@@ -18,39 +18,41 @@ export default function ProductCard({ product }: ProductCardProps) {
   const whatsappOrderUrl = generateSingleProductOrderUrl(product, 1);
 
   return (
-    <article className="group bg-white rounded-2xl overflow-hidden border border-accent-beige/80 hover:border-gold-champagne/50 shadow-sm hover:shadow-luxury transition-all duration-300 flex flex-col h-full">
-      {/* Product Image Container */}
-      <div className="relative aspect-[4/3.5] bg-ivory-cream overflow-hidden">
+    <article className="group bg-white rounded-2xl overflow-hidden border border-accent-beige/90 hover:border-gold-champagne/60 shadow-xs hover:shadow-luxury transition-all duration-300 flex flex-col h-full">
+      {/* Product Image Frame: Clean pure white studio container, 4:3 ratio matching actual photo proportions */}
+      <div className="relative aspect-[4/3] bg-white overflow-hidden p-3 flex items-center justify-center border-b border-accent-beige/40">
         {product.images && product.images[0] ? (
-          <Image
-            src={product.images[0]}
-            alt={product.name}
-            fill
-            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-            className="object-cover object-center group-hover:scale-105 transition-transform duration-500 ease-out"
-          />
+          <div className="relative w-full h-full">
+            <Image
+              src={product.images[0]}
+              alt={product.name}
+              fill
+              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+              className="object-contain object-center drop-shadow-sm group-hover:scale-105 group-hover:drop-shadow-md transition-all duration-500 ease-out contrast-[1.03]"
+            />
+          </div>
         ) : (
-          <div className="w-full h-full flex items-center justify-center bg-accent-beige/30 text-accent-taupe font-serif">
+          <div className="w-full h-full flex items-center justify-center bg-accent-beige/20 text-accent-taupe font-serif">
             <span>Noir & Nuts Confection</span>
           </div>
         )}
 
         {/* Badges */}
-        <div className="absolute top-3 left-3 flex flex-wrap gap-1.5 z-10">
+        <div className="absolute top-3 left-3 flex flex-wrap gap-1.5 z-10 pointer-events-none">
           {product.isBestseller && (
-            <span className="px-2.5 py-1 rounded-full bg-gold-champagne text-chocolate-espresso text-[10px] font-bold uppercase tracking-wider shadow-xs">
+            <span className="px-2.5 py-1 rounded-full bg-gold-champagne text-chocolate-espresso text-[10px] font-bold uppercase tracking-wider shadow-sm">
               Bestseller
             </span>
           )}
           {product.category && (
-            <span className="px-2.5 py-1 rounded-full bg-white/90 backdrop-blur-xs text-chocolate-espresso text-[10px] font-medium uppercase tracking-wider border border-accent-beige shadow-xs">
+            <span className="px-2.5 py-1 rounded-full bg-white/95 backdrop-blur-xs text-chocolate-espresso text-[10px] font-medium uppercase tracking-wider border border-accent-beige shadow-xs">
               {product.category}
             </span>
           )}
         </div>
 
         {/* Quick View Hover Overlay */}
-        <div className="absolute inset-0 bg-chocolate-espresso/25 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-3">
+        <div className="absolute inset-0 bg-chocolate-espresso/20 backdrop-blur-[1px] opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-3">
           <Link
             href={`/product/${product.slug}`}
             className="p-3 rounded-full bg-white text-chocolate-espresso hover:text-gold-antique hover:scale-110 shadow-md transition-all duration-200"
@@ -69,15 +71,13 @@ export default function ProductCard({ product }: ProductCardProps) {
       </div>
 
       {/* Card Body */}
-      <div className="p-5 sm:p-6 flex-1 flex flex-col justify-between">
+      <div className="p-5 sm:p-6 flex-1 flex flex-col justify-between bg-white">
         <div className="space-y-2">
-          <div className="flex items-start justify-between gap-2">
-            <Link href={`/product/${product.slug}`}>
-              <h3 className="font-serif text-lg sm:text-xl font-bold text-chocolate-espresso group-hover:text-gold-antique transition-colors leading-snug line-clamp-1">
-                {product.name}
-              </h3>
-            </Link>
-          </div>
+          <Link href={`/product/${product.slug}`} className="block">
+            <h3 className="font-serif text-lg sm:text-xl font-bold text-chocolate-espresso group-hover:text-gold-antique transition-colors leading-snug line-clamp-1">
+              {product.name}
+            </h3>
+          </Link>
 
           <p className="text-xs sm:text-sm text-chocolate-rich/70 line-clamp-2 leading-relaxed">
             {product.description}
@@ -107,7 +107,7 @@ export default function ProductCard({ product }: ProductCardProps) {
             </div>
 
             {product.weight && (
-              <span className="text-[11px] text-accent-taupe uppercase tracking-wider">
+              <span className="text-[11px] text-accent-taupe uppercase tracking-wider font-medium">
                 {product.weight}
               </span>
             )}

@@ -72,7 +72,7 @@ export default function GiftingSection() {
         </div>
 
         {/* Visual Showcase & WhatsApp CTA Banner */}
-        <div className="rounded-3xl bg-chocolate-espresso/80 border border-gold-champagne/30 p-8 sm:p-12 overflow-hidden shadow-luxury">
+        <div className="rounded-3xl bg-chocolate-espresso/90 border border-gold-champagne/30 p-8 sm:p-12 overflow-hidden shadow-luxury">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
             <div className="lg:col-span-7 space-y-4">
               <span className="text-xs uppercase tracking-[0.2em] text-gold-champagne font-semibold">
@@ -99,23 +99,27 @@ export default function GiftingSection() {
             </div>
 
             <div className="lg:col-span-5 grid grid-cols-2 gap-3.5">
-              <div className="relative aspect-square rounded-2xl overflow-hidden border border-gold-champagne/30 shadow-sm">
-                <Image
-                  src="/images/products/choco-fusion-16.jpeg"
-                  alt="Noir & Nuts 16 Piece Grand Fusion Gift Box"
-                  fill
-                  className="object-cover hover:scale-105 transition-transform duration-500"
-                  sizes="240px"
-                />
+              <div className="relative aspect-[4/3] rounded-2xl overflow-hidden border border-gold-champagne/30 bg-white p-2 shadow-sm group">
+                <div className="relative w-full h-full">
+                  <Image
+                    src="/images/products/choco-fusion-16.jpeg"
+                    alt="Noir & Nuts 16 Piece Grand Fusion Gift Box"
+                    fill
+                    className="object-contain drop-shadow-sm group-hover:scale-105 transition-transform duration-500 contrast-[1.03]"
+                    sizes="240px"
+                  />
+                </div>
               </div>
-              <div className="relative aspect-square rounded-2xl overflow-hidden border border-gold-champagne/30 shadow-sm">
-                <Image
-                  src="/images/products/choco-stick-box.jpeg"
-                  alt="Noir & Nuts Choco Stick Confection Box"
-                  fill
-                  className="object-cover hover:scale-105 transition-transform duration-500"
-                  sizes="240px"
-                />
+              <div className="relative aspect-[4/3] rounded-2xl overflow-hidden border border-gold-champagne/30 bg-white p-2 shadow-sm group">
+                <div className="relative w-full h-full">
+                  <Image
+                    src="/images/products/choco-stick-box.jpeg"
+                    alt="Noir & Nuts Choco Stick Confection Box"
+                    fill
+                    className="object-contain drop-shadow-sm group-hover:scale-105 transition-transform duration-500 contrast-[1.03]"
+                    sizes="240px"
+                  />
+                </div>
               </div>
             </div>
           </div>

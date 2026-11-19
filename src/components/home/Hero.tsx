@@ -1,28 +1,52 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, MessageCircle, Sparkles, Award } from "lucide-react";
 import { BRAND_WHATSAPP_NUMBER } from "@/lib/whatsapp";
 
+const HERO_SHOWCASES = [
+  {
+    title: "Choco Fusion Box (12 Assorted)",
+    subtitle: "Pista Kunafa • Stuffed Dates • Hazelnut Praline • Oreo Crunch",
+    image: "/images/products/choco-fusion-12.jpeg",
+    badge: "Signature Collection",
+  },
+  {
+    title: "Choco Floral Treats Box",
+    subtitle: "Artisan Floral Medallion • Berry Blast • Rose Truffles",
+    image: "/images/products/choco-floral-treats.jpeg",
+    badge: "Boutique Gift Box",
+  },
+  {
+    title: "Roasted Nut & Choco Rings",
+    subtitle: "Roasted California Almonds • Seeds • Dual Milk & White Cocoa",
+    image: "/images/products/roasted-nut-choco-rings.jpeg",
+    badge: "Nut Delights",
+  },
+];
+
 export default function Hero() {
+  const [activeIndex, setActiveIndex] = useState(0);
+  const current = HERO_SHOWCASES[activeIndex];
+
   const whatsappUrl = `https://wa.me/${BRAND_WHATSAPP_NUMBER}?text=${encodeURIComponent(
     "Hello Noir & Nuts! I saw your luxury collection and would like to order handcrafted chocolates."
   )}`;
 
   return (
-    <section className="relative overflow-hidden bg-ivory-warm pt-28 pb-16 lg:pt-36 lg:pb-28">
+    <section className="relative overflow-hidden bg-ivory-warm pt-28 pb-16 lg:pt-36 lg:pb-24">
       {/* Subtle warm backdrop glow */}
       <div className="absolute top-1/4 -left-40 w-96 h-96 bg-gold-champagne/10 rounded-full blur-3xl pointer-events-none" />
       <div className="absolute bottom-10 right-0 w-80 h-80 bg-accent-caramel/10 rounded-full blur-3xl pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-10 items-center">
           {/* LEFT CONTENT: Editorial Typography */}
           <div className="lg:col-span-7 space-y-7">
             {/* Small introductory label */}
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/80 border border-gold-champagne/40 shadow-xs">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/90 border border-gold-champagne/40 shadow-xs">
               <Sparkles className="w-3.5 h-3.5 text-gold-antique" />
               <span className="text-[11px] uppercase tracking-[0.22em] font-semibold text-chocolate-espresso">
                 THE ART OF FINE INDULGENCE
@@ -75,50 +99,66 @@ export default function Hero() {
             </div>
           </div>
 
-          {/* RIGHT CONTENT: Editorial Visual Composition */}
+          {/* RIGHT CONTENT: Editorial Studio Showcase in true 4:3 ratio without ugly cropping */}
           <div className="lg:col-span-5 relative">
             <div className="relative mx-auto max-w-md lg:max-w-none">
               {/* Gold decorative border offset */}
-              <div className="absolute -inset-2.5 rounded-3xl border border-gold-champagne/30 -rotate-1 pointer-events-none" />
+              <div className="absolute -inset-3 rounded-3xl border border-gold-champagne/30 -rotate-1 pointer-events-none" />
 
-              {/* Main Image Frame */}
-              <div className="relative rounded-2xl overflow-hidden bg-white shadow-luxury-lg border border-accent-beige/80 aspect-[4/4.5] group">
-                <Image
-                  src="/images/products/choco-fusion-12.jpeg"
-                  alt="Noir & Nuts Choco Fusion Box - 12 Handcrafted Chocolates with Kunafa, Dates and Roasted Nuts"
-                  fill
-                  priority
-                  className="object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-out"
-                  sizes="(max-width: 1024px) 90vw, 480px"
-                />
+              {/* Main Image Frame: Pure white photography backdrop, 4:3 aspect ratio */}
+              <div className="relative rounded-2xl overflow-hidden bg-white shadow-luxury-lg border border-accent-beige/90 aspect-[4/3] p-3 group">
+                <div className="relative w-full h-full">
+                  <Image
+                    key={current.image}
+                    src={current.image}
+                    alt={current.title}
+                    fill
+                    priority
+                    className="object-contain object-center drop-shadow-md group-hover:scale-105 transition-all duration-700 ease-out contrast-[1.03]"
+                    sizes="(max-width: 1024px) 90vw, 520px"
+                  />
+                </div>
 
-                {/* Subtle dark gradient overlay at bottom for caption */}
-                <div className="absolute inset-0 bg-gradient-to-t from-chocolate-espresso/70 via-transparent to-transparent opacity-90" />
-
-                <div className="absolute bottom-5 left-5 right-5 text-ivory-warm">
-                  <div className="flex items-center gap-2 text-gold-champagne text-[11px] uppercase tracking-widest font-semibold mb-1">
-                    <Award className="w-3.5 h-3.5" />
-                    <span>Signature Collection</span>
-                  </div>
-                  <p className="font-serif text-lg font-medium text-white">Choco Fusion Box (12 Assorted)</p>
-                  <p className="text-xs text-ivory-warm/80">Pista Kunafa • Hazelnut • Stuffed Dates • Rasamalai</p>
+                {/* Badge Overlay */}
+                <div className="absolute top-4 left-4 flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/95 backdrop-blur-xs border border-gold-champagne/40 shadow-xs">
+                  <Award className="w-3.5 h-3.5 text-gold-antique" />
+                  <span className="text-[10px] uppercase tracking-widest font-bold text-chocolate-espresso">
+                    {current.badge}
+                  </span>
                 </div>
               </div>
 
-              {/* Floating secondary accent badge */}
-              <div className="absolute -top-4 -right-4 sm:-top-6 sm:-right-6 bg-white/95 backdrop-blur-md p-3.5 sm:p-4 rounded-2xl shadow-luxury border border-gold-champagne/40 flex items-center gap-3">
-                <div className="relative w-10 h-10 rounded-full overflow-hidden border border-gold-champagne/50 flex-shrink-0">
+              {/* Showcase switcher pills under image */}
+              <div className="mt-4 flex items-center justify-between gap-2 p-2 rounded-2xl bg-white/80 backdrop-blur-xs border border-accent-beige shadow-xs">
+                {HERO_SHOWCASES.map((item, idx) => (
+                  <button
+                    key={idx}
+                    onClick={() => setActiveIndex(idx)}
+                    className={`flex-1 py-1.5 px-2 rounded-xl text-[10px] uppercase tracking-wider font-semibold transition-all ${
+                      activeIndex === idx
+                        ? "bg-chocolate-espresso text-gold-champagne shadow-xs"
+                        : "text-chocolate-rich/70 hover:text-chocolate-espresso"
+                    }`}
+                  >
+                    {idx === 0 ? "12 Assorted" : idx === 1 ? "Floral Box" : "Nut Rings"}
+                  </button>
+                ))}
+              </div>
+
+              {/* Floating Siliguri seal badge */}
+              <div className="absolute -top-4 -right-4 sm:-top-5 sm:-right-5 bg-white/95 backdrop-blur-md p-3 sm:p-3.5 rounded-2xl shadow-luxury border border-gold-champagne/40 flex items-center gap-3">
+                <div className="relative w-9 h-9 rounded-full overflow-hidden border border-gold-champagne/50 flex-shrink-0">
                   <Image
                     src="/images/logo/logo.jpeg"
                     alt="Noir & Nuts Seal"
                     fill
                     className="object-contain p-0.5"
-                    sizes="40px"
+                    sizes="36px"
                   />
                 </div>
                 <div>
-                  <p className="text-[10px] uppercase tracking-wider text-accent-taupe font-semibold">Handcrafted in</p>
-                  <p className="font-serif text-sm font-bold text-chocolate-espresso">Siliguri, India</p>
+                  <p className="text-[9px] uppercase tracking-wider text-accent-taupe font-semibold">Handcrafted in</p>
+                  <p className="font-serif text-xs font-bold text-chocolate-espresso">Siliguri, India</p>
                 </div>
               </div>
             </div>
