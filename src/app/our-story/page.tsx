@@ -9,6 +9,15 @@ export const metadata: Metadata = {
   title: "Our Story | Handcrafted Passion in Siliguri",
   description:
     "Learn the story of Noir & Nuts — handcrafted artisanal chocolates, roasted nut delights, and confectionery confections crafted with love in Hakim Para, Siliguri.",
+  alternates: {
+    canonical: "https://noirandnuts.vercel.app/our-story",
+  },
+  openGraph: {
+    title: "Our Story - Noir & Nuts Siliguri",
+    description: "Handcrafted artisanal chocolates, nut confections, and bespoke wedding hampers in Siliguri, West Bengal.",
+    url: "https://noirandnuts.vercel.app/our-story",
+    images: ["/images/products/wedding-trousseau-thali.jpeg"],
+  },
 };
 
 export default function OurStoryPage() {

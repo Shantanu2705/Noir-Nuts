@@ -23,6 +23,7 @@ export interface Product {
   customisationNotice?: string;
   customizationNotice?: string;
   images: string[];
+  videoUrl?: string;
   price?: number;
   originalPrice?: number;
   category: ProductCategory;

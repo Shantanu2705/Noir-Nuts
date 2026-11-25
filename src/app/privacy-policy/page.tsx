@@ -8,6 +8,9 @@ export const metadata: Metadata = {
   title: "Privacy Policy | Noir & Nuts Siliguri",
   description:
     "Privacy Policy for Noir & Nuts. We respect your privacy — all orders are processed directly through WhatsApp and phone communication with zero backend tracking.",
+  alternates: {
+    canonical: "https://noirandnuts.vercel.app/privacy-policy",
+  },
 };
 
 export default function PrivacyPolicyPage() {

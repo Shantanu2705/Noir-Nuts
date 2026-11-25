@@ -44,6 +44,13 @@ const FAQS = [
   },
 ];
 
+function sanitizeInput(str: string, maxLength = 300): string {
+  return str
+    .replace(/[<>]/g, "")
+    .trim()
+    .slice(0, maxLength);
+}
+
 export default function ContactPage() {
   const [name, setName] = useState("");
   const [occasion, setOccasion] = useState("");
@@ -56,16 +63,22 @@ export default function ContactPage() {
 
   const handleSubmitEnquiry = (e: React.FormEvent) => {
     e.preventDefault();
+    const cleanName = sanitizeInput(name, 60) || "a chocolate lover";
+    const cleanOccasion = sanitizeInput(occasion, 100) || "General Chocolate Inquiry";
+    const cleanMessage =
+      sanitizeInput(message, 500) ||
+      "I would love to learn more about your handcrafted chocolates and available assortments in Siliguri.";
+
     const formatted = `Hello Noir & Nuts!
-My name is ${name || "a chocolate lover"}.
-Occasion/Inquiry: ${occasion || "General Chocolate Inquiry"}
+My name is ${cleanName}.
+Occasion/Inquiry: ${cleanOccasion}
 
 Note:
-${message || "I would love to learn more about your handcrafted chocolates and available assortments in Siliguri."}
+${cleanMessage}
 
 Thank you!`;
     const url = buildWhatsAppUrl(formatted);
-    window.open(url, "_blank");
+    window.open(url, "_blank", "noopener,noreferrer");
   };
 
   return (

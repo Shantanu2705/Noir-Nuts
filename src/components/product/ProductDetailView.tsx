@@ -15,6 +15,8 @@ import {
   Check,
   ArrowLeft,
   ZoomIn,
+  Play,
+  Film,
 } from "lucide-react";
 import { Product } from "@/types/product";
 import { formatPrice } from "@/lib/utils";
@@ -29,6 +31,7 @@ interface ProductDetailViewProps {
 
 export default function ProductDetailView({ product, relatedProducts }: ProductDetailViewProps) {
   const [selectedImage, setSelectedImage] = useState(0);
+  const [activeMedia, setActiveMedia] = useState<"image" | "video">("image");
   const [quantity, setQuantity] = useState(1);
   const [addedNotice, setAddedNotice] = useState(false);
   const [isZoomed, setIsZoomed] = useState(false);
@@ -56,55 +59,97 @@ export default function ProductDetailView({ product, relatedProducts }: ProductD
 
       {/* Main Product Showcase Section */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
-        {/* Left Column: Image Gallery - 4:3 Ratio Studio Frame */}
+        {/* Left Column: Media Showcase (Images & Video) */}
         <div className="lg:col-span-6 space-y-4">
-          <div
-            className="relative rounded-3xl overflow-hidden bg-white border border-accent-beige/90 shadow-luxury aspect-[4/3] p-4 sm:p-6 flex items-center justify-center cursor-zoom-in group"
-            onClick={() => setIsZoomed(!isZoomed)}
-          >
-            <div className="relative w-full h-full">
-              <Image
-                src={product.images[selectedImage] || product.images[0]}
-                alt={product.name}
-                fill
-                priority
-                className={`object-contain object-center drop-shadow-md transition-all duration-500 contrast-[1.03] ${
-                  isZoomed ? "scale-125" : "group-hover:scale-105"
-                }`}
-                sizes="(max-width: 1024px) 100vw, 600px"
-              />
-            </div>
+          <div className="relative rounded-3xl overflow-hidden bg-white border border-accent-beige/90 shadow-luxury aspect-[4/3] p-4 sm:p-6 flex items-center justify-center">
+            {activeMedia === "video" && product.videoUrl ? (
+              <div className="relative w-full h-full rounded-2xl overflow-hidden bg-chocolate-espresso flex items-center justify-center">
+                <video
+                  src={product.videoUrl}
+                  controls
+                  autoPlay
+                  loop
+                  playsInline
+                  className="w-full h-full object-contain"
+                >
+                  Your browser does not support the video tag.
+                </video>
+              </div>
+            ) : (
+              <div
+                className="relative w-full h-full cursor-zoom-in group"
+                onClick={() => setIsZoomed(!isZoomed)}
+              >
+                <Image
+                  src={product.images[selectedImage] || product.images[0]}
+                  alt={product.name}
+                  fill
+                  priority
+                  className={`object-contain object-center drop-shadow-md transition-all duration-500 contrast-[1.03] ${
+                    isZoomed ? "scale-125" : "group-hover:scale-105"
+                  }`}
+                  sizes="(max-width: 1024px) 100vw, 600px"
+                />
+
+                <div className="absolute bottom-2 right-2 flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/90 backdrop-blur-xs text-[11px] text-chocolate-espresso border border-accent-beige shadow-xs opacity-80 group-hover:opacity-100 transition-opacity pointer-events-none">
+                  <ZoomIn className="w-3.5 h-3.5 text-gold-antique" />
+                  <span>{isZoomed ? "Reset" : "Inspect"}</span>
+                </div>
+              </div>
+            )}
 
             {product.isBestseller && (
-              <span className="absolute top-5 left-5 px-3 py-1.5 rounded-full bg-gold-champagne text-chocolate-espresso text-xs font-bold uppercase tracking-wider shadow-sm pointer-events-none">
+              <span className="absolute top-5 left-5 px-3 py-1.5 rounded-full bg-gold-champagne text-chocolate-espresso text-xs font-bold uppercase tracking-wider shadow-sm pointer-events-none z-10">
                 Bestseller
               </span>
             )}
 
-            <div className="absolute bottom-4 right-4 flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/90 backdrop-blur-xs text-[11px] text-chocolate-espresso border border-accent-beige shadow-xs opacity-75 group-hover:opacity-100 transition-opacity pointer-events-none">
-              <ZoomIn className="w-3.5 h-3.5 text-gold-antique" />
-              <span>{isZoomed ? "Click to Reset" : "Click to Inspect"}</span>
-            </div>
+            {product.videoUrl && activeMedia === "image" && (
+              <button
+                onClick={() => setActiveMedia("video")}
+                className="absolute top-5 right-5 z-10 flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-chocolate-espresso/90 hover:bg-chocolate-deep text-gold-champagne text-xs font-semibold uppercase tracking-wider shadow-md transition-all hover:scale-105 border border-gold-champagne/40"
+              >
+                <Play className="w-3.5 h-3.5 fill-gold-champagne text-gold-champagne" />
+                <span>Watch Reel</span>
+              </button>
+            )}
           </div>
 
-          {/* Multiple Image Thumbnails if present */}
-          {product.images.length > 1 && (
-            <div className="flex gap-3">
-              {product.images.map((img, idx) => (
-                <button
-                  key={idx}
-                  onClick={() => setSelectedImage(idx)}
-                  className={`relative w-20 h-20 rounded-xl overflow-hidden border-2 bg-white p-1 transition-all ${
-                    selectedImage === idx
-                      ? "border-gold-champagne shadow-sm scale-105"
-                      : "border-accent-beige opacity-70 hover:opacity-100"
-                  }`}
-                >
-                  <Image src={img} alt={`${product.name} preview ${idx + 1}`} fill className="object-contain" />
-                </button>
-              ))}
-            </div>
-          )}
+          {/* Media Selector (Thumbnails + Video Reel Option) */}
+          <div className="flex flex-wrap items-center gap-3">
+            {product.images.map((img, idx) => (
+              <button
+                key={idx}
+                onClick={() => {
+                  setSelectedImage(idx);
+                  setActiveMedia("image");
+                }}
+                className={`relative w-20 h-20 rounded-xl overflow-hidden border-2 bg-white p-1 transition-all ${
+                  activeMedia === "image" && selectedImage === idx
+                    ? "border-gold-champagne shadow-sm scale-105"
+                    : "border-accent-beige opacity-70 hover:opacity-100"
+                }`}
+                aria-label={`View photo ${idx + 1}`}
+              >
+                <Image src={img} alt={`${product.name} photo ${idx + 1}`} fill className="object-contain" />
+              </button>
+            ))}
+
+            {product.videoUrl && (
+              <button
+                onClick={() => setActiveMedia("video")}
+                className={`relative h-20 px-4 rounded-xl border-2 flex flex-col items-center justify-center gap-1.5 transition-all ${
+                  activeMedia === "video"
+                    ? "border-gold-champagne bg-chocolate-espresso text-gold-champagne shadow-sm scale-105"
+                    : "border-accent-beige bg-white text-chocolate-espresso opacity-80 hover:opacity-100"
+                }`}
+                aria-label="Play video showcase"
+              >
+                <Film className="w-5 h-5 text-gold-champagne" />
+                <span className="text-[10px] font-bold uppercase tracking-wider">Video Reel</span>
+              </button>
+            )}
+          </div>
         </div>
 
         {/* Right Column: Product Information & Purchase Flow */}
@@ -145,7 +190,7 @@ export default function ProductDetailView({ product, relatedProducts }: ProductD
                       {formatPrice(product.originalPrice)}
                     </span>
                   )}
-                  <span className="text-xs text-chocolate-rich/70">Per Box</span>
+                  <span className="text-xs text-chocolate-rich/70">Per Selection</span>
                 </div>
               ) : (
                 <span className="text-sm uppercase tracking-wider font-medium text-chocolate-espresso">
@@ -171,7 +216,7 @@ export default function ProductDetailView({ product, relatedProducts }: ProductD
             <div className="p-6 rounded-2xl bg-white border border-accent-beige/90 space-y-3.5 shadow-xs">
               <div className="flex items-center gap-2 text-xs uppercase tracking-[0.2em] font-semibold text-chocolate-espresso">
                 <Package className="w-4 h-4 text-gold-antique" />
-                <span>Box Assortment Breakdown</span>
+                <span>Selection Breakdown</span>
               </div>
               <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 pt-1 text-xs sm:text-sm text-chocolate-rich/85">
                 {product.boxContents.map((item, idx) => (
@@ -255,7 +300,7 @@ export default function ProductDetailView({ product, relatedProducts }: ProductD
             </div>
 
             <p className="text-[11px] text-center text-chocolate-rich/65 pt-1">
-              WhatsApp connects directly to our confectionery in Hakim Para, Siliguri.
+              WhatsApp connects directly to our confectionery atelier in Hakim Para, Siliguri.
             </p>
           </div>
 

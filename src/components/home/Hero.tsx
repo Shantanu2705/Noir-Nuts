@@ -12,18 +12,28 @@ const HERO_SHOWCASES = [
     subtitle: "Pista Kunafa • Stuffed Dates • Hazelnut Praline • Oreo Crunch",
     image: "/images/products/choco-fusion-12.jpeg",
     badge: "Signature Collection",
+    shortLabel: "12 Assorted",
+  },
+  {
+    title: "Royal Wedding Trousseau Thali",
+    subtitle: "Sindur Daan & Shubh Bibaha Chocolate Plaques • Gold Silk & Pearls",
+    image: "/images/products/wedding-trousseau-thali.jpeg",
+    badge: "Bridal Special",
+    shortLabel: "Wedding Thali",
   },
   {
     title: "Choco Floral Treats Box",
     subtitle: "Artisan Floral Medallion • Berry Blast • Rose Truffles",
     image: "/images/products/choco-floral-treats.jpeg",
     badge: "Boutique Gift Box",
+    shortLabel: "Floral Box",
   },
   {
     title: "Roasted Nut & Choco Rings",
     subtitle: "Roasted California Almonds • Seeds • Dual Milk & White Cocoa",
     image: "/images/products/roasted-nut-choco-rings.jpeg",
     badge: "Nut Delights",
+    shortLabel: "Nut Rings",
   },
 ];
 
@@ -140,7 +150,7 @@ export default function Hero() {
                         : "text-chocolate-rich/70 hover:text-chocolate-espresso"
                     }`}
                   >
-                    {idx === 0 ? "12 Assorted" : idx === 1 ? "Floral Box" : "Nut Rings"}
+                    {item.shortLabel}
                   </button>
                 ))}
               </div>
