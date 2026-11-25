@@ -13,9 +13,9 @@ const OCCASIONS = [
     description: "Bespoke Shubh Bibaha & Sindur Daan chocolate thalis adorned with gold silk and pearls.",
   },
   {
-    icon: Cake,
-    title: "Birthday Surprises",
-    description: "Make milestone years and personal celebrations genuinely sweeter with artisan assorted boxes.",
+    icon: Gift,
+    title: "Wedding Return Gifts",
+    description: "Curated 4 & 5 piece favour boxes from ₹199. Custom logo with your name available (MOQ: 10).",
   },
   {
     icon: Sparkles,
@@ -23,9 +23,9 @@ const OCCASIONS = [
     description: "Celebrate Diwali, Eid, Christmas, and traditional festivals with Indian-fusion chocolate treasures.",
   },
   {
-    icon: Gift,
-    title: "Bespoke Gift Hampers",
-    description: "Woven baskets draped in pink tulle with hand-piped floral chocolate bars and truffles.",
+    icon: Cake,
+    title: "Birthday & Milestone Favours",
+    description: "Make personal milestones genuinely sweeter with artisan assorted boxes and floral treats.",
   },
 ];
 

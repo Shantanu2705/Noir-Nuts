@@ -4,7 +4,8 @@ export type ProductCategory =
   | "Chocolate Treats"
   | "Nut Delights"
   | "Chocolate Gifts"
-  | "Special Collections";
+  | "Special Collections"
+  | "Wedding Return Gifts";
 
 export interface ProductItemContent {
   name: string;
@@ -22,6 +23,7 @@ export interface Product {
   boxContents?: ProductItemContent[];
   customisationNotice?: string;
   customizationNotice?: string;
+  minOrderQuantity?: number;
   images: string[];
   videoUrl?: string;
   price?: number;

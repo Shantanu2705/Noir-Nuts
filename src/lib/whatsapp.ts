@@ -51,14 +51,16 @@ Thank you!`;
 /**
  * Generates a direct single product order message from product card or detail page.
  */
-export function generateSingleProductOrderUrl(product: Product, quantity = 1): string {
+export function generateSingleProductOrderUrl(product: Product, quantity?: number): string {
+  const actualQty = quantity ?? (product.minOrderQuantity || 1);
   const priceInfo = product.price ? ` (₹${product.price} each)` : "";
-  const total = product.price ? `\nEstimated Total: ₹${product.price * quantity}` : "";
+  const total = product.price ? `\nEstimated Total: ₹${product.price * actualQty}` : "";
+  const customNote = product.customisationNotice ? `\nCustomisation Request: Yes (Logo / Couple Name)` : "";
 
   const message = `Hello Noir & Nuts!
 I would like to place an order.
 
-Product: ${product.name} – Quantity: ${quantity}${priceInfo}${total}
+Product: ${product.name} – Quantity: ${actualQty} boxes${priceInfo}${total}${customNote}
 
 Delivery Location: Siliguri / West Bengal
 Please share the availability and ordering details.

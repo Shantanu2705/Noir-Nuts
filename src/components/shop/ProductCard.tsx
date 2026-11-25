@@ -15,7 +15,8 @@ interface ProductCardProps {
 
 export default function ProductCard({ product }: ProductCardProps) {
   const { addToCart } = useCart();
-  const whatsappOrderUrl = generateSingleProductOrderUrl(product, 1);
+  const initialQty = product.minOrderQuantity || 1;
+  const whatsappOrderUrl = generateSingleProductOrderUrl(product, initialQty);
 
   return (
     <article className="group bg-white rounded-2xl overflow-hidden border border-accent-beige/90 hover:border-gold-champagne/60 shadow-xs hover:shadow-luxury transition-all duration-300 flex flex-col h-full">
@@ -61,7 +62,7 @@ export default function ProductCard({ product }: ProductCardProps) {
             <Eye className="w-4 h-4" />
           </Link>
           <button
-            onClick={() => addToCart(product, 1)}
+            onClick={() => addToCart(product, initialQty)}
             aria-label={`Add ${product.name} to sweet bag`}
             className="p-3 rounded-full bg-gold-champagne text-chocolate-espresso hover:bg-gold-antique hover:scale-110 shadow-md transition-all duration-200"
           >
@@ -112,6 +113,12 @@ export default function ProductCard({ product }: ProductCardProps) {
               </span>
             )}
           </div>
+
+          {product.minOrderQuantity && (
+            <div className="text-[11px] font-semibold text-chocolate-espresso bg-accent-beige/60 px-2.5 py-1 rounded-md text-center">
+              Min. Order: {product.minOrderQuantity} boxes
+            </div>
+          )}
 
           {/* Action Buttons: View Details & WhatsApp Order */}
           <div className="grid grid-cols-2 gap-2 pt-1">

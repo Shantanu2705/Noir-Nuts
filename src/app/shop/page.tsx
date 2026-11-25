@@ -8,15 +8,15 @@ import { BRAND_WHATSAPP_NUMBER } from "@/lib/whatsapp";
 export const metadata: Metadata = {
   title: "Shop Handcrafted Chocolates & Gifts | Siliguri Confectionery",
   description:
-    "Explore our full collection of handcrafted chocolate gift boxes, bridal wedding thalis, celebration hampers, roasted nut rings, and artisan chocolate confections in Siliguri. Direct ordering on WhatsApp.",
+    "Explore our full collection of handcrafted chocolate gift boxes, wedding return gifts, bridal wedding thalis, celebration hampers, and artisan chocolate confections in Siliguri. Direct ordering on WhatsApp.",
   alternates: {
     canonical: "https://noirandnuts.vercel.app/shop",
   },
   openGraph: {
     title: "Shop Artisanal Chocolates - Noir & Nuts Siliguri",
-    description: "Explore our collection of handcrafted chocolate gift boxes, wedding thalis, and nut treats in Siliguri.",
+    description: "Explore our collection of handcrafted chocolate gift boxes, wedding return gifts, and nut treats in Siliguri.",
     url: "https://noirandnuts.vercel.app/shop",
-    images: ["/images/products/wedding-trousseau-thali.jpeg"],
+    images: ["/images/products/wedding-return-gift-box-4.jpeg"],
   },
 };
 

@@ -30,9 +30,10 @@ interface ProductDetailViewProps {
 }
 
 export default function ProductDetailView({ product, relatedProducts }: ProductDetailViewProps) {
+  const minQty = product.minOrderQuantity || 1;
   const [selectedImage, setSelectedImage] = useState(0);
   const [activeMedia, setActiveMedia] = useState<"image" | "video">("image");
-  const [quantity, setQuantity] = useState(1);
+  const [quantity, setQuantity] = useState(minQty);
   const [addedNotice, setAddedNotice] = useState(false);
   const [isZoomed, setIsZoomed] = useState(false);
   const { addToCart } = useCart();
@@ -190,7 +191,9 @@ export default function ProductDetailView({ product, relatedProducts }: ProductD
                       {formatPrice(product.originalPrice)}
                     </span>
                   )}
-                  <span className="text-xs text-chocolate-rich/70">Per Selection</span>
+                  <span className="text-xs text-chocolate-rich/70">
+                    {product.minOrderQuantity ? "Per Box" : "Per Selection"}
+                  </span>
                 </div>
               ) : (
                 <span className="text-sm uppercase tracking-wider font-medium text-chocolate-espresso">
@@ -205,6 +208,21 @@ export default function ProductDetailView({ product, relatedProducts }: ProductD
               </span>
             )}
           </div>
+
+          {/* MOQ Alert Banner */}
+          {product.minOrderQuantity && (
+            <div className="p-4 rounded-2xl bg-gold-champagne/10 border border-gold-champagne/40 flex items-center gap-3 text-xs sm:text-sm text-chocolate-espresso shadow-xs">
+              <Sparkles className="w-5 h-5 text-gold-antique shrink-0" />
+              <div>
+                <p className="font-semibold text-chocolate-espresso">
+                  Minimum Order Quantity: {product.minOrderQuantity} boxes
+                </p>
+                <p className="text-[11px] text-chocolate-rich/75">
+                  Handcrafted wedding return favours. Custom logo with couple&apos;s name can be added (charges apply).
+                </p>
+              </div>
+            </div>
+          )}
 
           {/* Detailed Narrative */}
           <p className="text-sm sm:text-base text-chocolate-rich/80 leading-relaxed">
@@ -249,7 +267,7 @@ export default function ProductDetailView({ product, relatedProducts }: ProductD
               </span>
               <div className="flex items-center border border-accent-beige rounded-full bg-white shadow-xs">
                 <button
-                  onClick={() => setQuantity(Math.max(1, quantity - 1))}
+                  onClick={() => setQuantity(Math.max(minQty, quantity - 1))}
                   aria-label="Decrease quantity"
                   className="p-2.5 text-chocolate-rich hover:text-chocolate-espresso transition-colors"
                 >
