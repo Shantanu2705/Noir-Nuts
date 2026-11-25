@@ -154,8 +154,8 @@ export default function GiftingSection() {
               >
                 <div className="relative w-full h-3/4">
                   <Image
-                    src="/images/products/wedding-trousseau-thali.jpeg"
-                    alt="Noir & Nuts Royal Wedding Trousseau Chocolate Thali"
+                    src="/images/products/wedding-heart-thali-22-assorted.jpeg"
+                    alt="Noir & Nuts Royal Wedding Heart Chocolate Thali"
                     fill
                     className="object-contain drop-shadow-sm group-hover:scale-105 transition-transform duration-500 contrast-[1.03]"
                     sizes="260px"
@@ -164,9 +164,9 @@ export default function GiftingSection() {
                 <div className="pt-2 border-t border-accent-beige/60">
                   <p className="text-[10px] uppercase tracking-wider text-accent-taupe font-semibold">Bridal Special</p>
                   <p className="font-serif text-sm font-bold text-chocolate-espresso truncate group-hover:text-gold-antique transition-colors">
-                    Wedding Trousseau Thali
+                    Wedding Heart Thali (22 pcs)
                   </p>
-                  <p className="text-xs text-gold-antique font-semibold">₹1,499</p>
+                  <p className="text-xs text-gold-antique font-semibold">₹1,599 • Loaded with Nuts & Dates</p>
                 </div>
               </Link>
             </div>

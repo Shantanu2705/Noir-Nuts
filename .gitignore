@@ -29,6 +29,8 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# raw archives
+# raw archives and loose uploads
 *.zip
 temp_extract/
+WhatsApp Image *
+WhatsApp Unknown *

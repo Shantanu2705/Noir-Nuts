@@ -16,8 +16,8 @@ const HERO_SHOWCASES = [
   },
   {
     title: "Royal Wedding Trousseau Thali",
-    subtitle: "Sindur Daan & Shubh Bibaha Chocolate Plaques • Gold Silk & Pearls",
-    image: "/images/products/wedding-trousseau-thali.jpeg",
+    subtitle: "22 Handcrafted Chocolates Loaded with Roasted Nuts & Kimia Dates",
+    image: "/images/products/wedding-heart-thali-22-assorted.jpeg",
     badge: "Bridal Special",
     shortLabel: "Wedding Thali",
   },
